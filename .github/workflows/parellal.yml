@@ -18,7 +18,7 @@ jobs:
 
 # This flag controls whether the entire matrix job should fail if one job in the matrix fails
         matrix:
-          state: [ca, ia, ny]
+          state: [ca, ia, ny, nj, pa]
     steps:
       - name: Hello world
         run: echo "Scraping data for ${{ matrix.state }}"
