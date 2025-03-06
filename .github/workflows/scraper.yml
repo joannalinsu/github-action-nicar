@@ -1,0 +1,34 @@
+name: First Scraper
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: "0 0 * * *"   ##crontab guru
+
+jobs:
+  scrape:
+    name: Scrape
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout  ##important step0
+        uses: actions/checkout@v4
+        
+      - name: Install Python  ##install language in the new environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install scraper
+        run: pip install warn-scraper  ##change to my own use case
+
+      - name: Scrape
+        run: warn-scraper IA --data-dir ./data/
+
+      - name: Commit and push
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "sulinjoanan@gmail.com"
+          git add ./data/
+          git commit -m "Latest data for Iowa" && git push || true
+
+      
