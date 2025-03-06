@@ -2,6 +2,11 @@ name: First Scraper
 
 on:
   workflow_dispatch:
+
+    inputs:   ## give user options to choose which state to scrape
+      state:
+        description: "U.S. state to scrape"
+        
   schedule:
   - cron: "0 0 * * *"   ##crontab guru
 
@@ -26,14 +31,16 @@ jobs:
         run: pip install warn-scraper  ##change to my own use case
 
       - name: Scrape
-        run: warn-scraper IA --data-dir ./data/
+        run: warn-scraper ${{ inputs.state }} --data-dir ./data/
 
       - name: Commit and push
         run: |
           git config user.name "GitHub Actions"
           git config user.email "sulinjoanan@gmail.com"
           git add ./data/
-          git commit -m "Latest data for Iowa" && git push || true
-
+          git commit -m "Latest data for ${{ inputs.state }}" && git push || true 
+          
+      - name: Save datestamp  ##ensure the repo changes constantly (why?
+        run: date > ./data/latest-scrape.txt
 
       
