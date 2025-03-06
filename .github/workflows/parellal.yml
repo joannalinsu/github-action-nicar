@@ -12,7 +12,6 @@ jobs:
   scrape:
     name: Scrape
     runs-on: ubuntu-latest
-    needs: scrape 
     continue-on-error: true  ## error handling
     strategy:
         fail-fast: false ## error handling
