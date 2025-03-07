@@ -1,1 +1,1 @@
-results live at -- https://joannalinsu.github.io/github-action-nicar/
+https://joannalinsu.github.io/github-action-nicar/
